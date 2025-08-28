@@ -14,3 +14,12 @@ bcrypt.init_app(app)
 cors.init_app(app, resources={r"/api/*": {"origins": "http://localhost:5173"}}, supports_credentials=True)
 api = Api(app)
 migrate = Migrate(app, db)
+
+
+class Home(Resource):
+    
+    def post(self):
+        return ("Welcome to study-compass Api")
+    
+
+api.add_resource(Home, "/api/home", endpoint='home' )
