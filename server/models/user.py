@@ -1,9 +1,6 @@
 from extensions import db,bcrypt
-from marshmallow import Schema, fields, validate, validates_schema, ValidationError
-from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 from datetime import datetime, timezone
 from sqlalchemy.ext.hybrid import hybrid_property
-
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -28,6 +25,6 @@ class User(db.Model):
         
     def authenticate(self, password):
         return bcrypt.check_password_hash(self._password_hash, password)
-    
-    
-    
+  
+
+
