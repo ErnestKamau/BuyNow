@@ -10,6 +10,7 @@ class Product(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), nullable=False)
+    image_url = db.Column(db.String)
     category_id = db.Column(db.Integer, db.ForeignKey("category.id"))
     description = db.Column(db.Text)
     kilograms = db.Column(db.Numeric(5, 2), nullable=True)  # e.g., 0.50(1/2kg), 1.00(1kg), 12.35  kilograms

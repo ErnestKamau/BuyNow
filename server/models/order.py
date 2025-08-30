@@ -7,10 +7,10 @@ class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     description = db.Column(db.Text)
-    status = db.Column(db.Enum("pending", "paid", "cancelled"), default="pending")
+    status = db.Column(db.Enum("pending", "paid", "cancelled"), default="pending", nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.now(timezone.utc))
     
     user = db.relationship("User", back_populates="orders")
     items = db.relationship("OrderItem", back_populates="order", cascade='all, delete-orphan')
-    
+    sale = db.relationship("Sale", back_populates="order", uselist=False, cascade="all, delete-orphan") # One-to-one   uselist=False makes Order.sale return a single object, not a list. 
     
