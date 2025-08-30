@@ -1,4 +1,4 @@
-# 🛒 BuyNow  
+# BuyNow  
 
 **BuyNow – Smart shopping, simplified.**  
 
@@ -6,15 +6,15 @@ BuyNow is a modern e-commerce web application designed to make shopping fast, ea
 
 ---
 
-## 🚀 Features  
+## Features  
 
-### 🌐 Customer Side  
+### Customer Side  
 - Browse products by category  
 - Add products to cart and place orders  
 - Pay conveniently via M-Pesa (STK Push & transaction tracking)  
 - Order history and status updates  
 
-### 📦 Admin Dashboard  
+### Admin Dashboard  
 - Manage products and categories  
 - Track inventory levels in real time  
 - Record sales and generate profit/loss reports  
@@ -23,7 +23,7 @@ BuyNow is a modern e-commerce web application designed to make shopping fast, ea
 
 ---
 
-## 🛠️ Tech Stack  
+## Tech Stack  
 
 - **Frontend**: React, Tailwind CSS  
 - **Backend**: Flask / FastAPI (Python)  
