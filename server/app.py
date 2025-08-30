@@ -18,8 +18,8 @@ migrate = Migrate(app, db)
 
 class Home(Resource):
     
-    def post(self):
+    def get(self):
         return ("Welcome to study-compass Api")
     
 
-api.add_resource(Home, "/api/home", endpoint='home' )
+api.add_resource(Home, "/", endpoint='home' )
