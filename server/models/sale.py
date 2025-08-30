@@ -4,6 +4,9 @@ from datetime import datetime, timezone
 
 class Sale(db.Model):
     __tablename__ = 'sales'
+    __table_args__ = (
+        db.CheckConstraint('total_amount >= 0', name='positive_amount'),
+    )
     
     id = db.Column(db.Integer, primary_key=True)
     order_id = db.Column(db.Integer, db.ForeignKey("orders.id"), nullable=False, unique=True) #A one-to-one relationship in SQLAlchemy is basically a one-to-many with a unique constraint on the foreign key. Without unique=True, you’d have a one-to-many (multiple Sales could link to one Order).

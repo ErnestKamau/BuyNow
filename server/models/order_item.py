@@ -3,6 +3,10 @@ from extensions import db
 
 class OrderItem(db.Model):
     __tablename__ = 'order_items'
+    __table_args__ = (
+        db.CheckConstraint('quantity > 0', name='valid_quantity'),
+        db.CheckConstraint('price >= 0', name='positive_price'),
+    )
     
     
     id = db.Column(db.Integer, primary_key=True)
