@@ -10,5 +10,7 @@ class Order(db.Model):
     status = db.Column(db.Enum("pending", "paid", "cancelled"), default="pending")
     created_at = db.Column(db.DateTime, default=datetime.now(timezone.utc))
     
+    user = db.relationship("User", back_populates="orders")
     items = db.relationship("OrderItem", back_populates="order", cascade='all, delete-orphan')
+    
     

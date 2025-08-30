@@ -19,5 +19,6 @@ class Product(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.now(timezone.utc))
     
     category = db.relationship("Category", back_populates="products")
+    order_items =  db.relationship("OrderItem", back_populates="product", cascade='all, delete-orphan')
     
     

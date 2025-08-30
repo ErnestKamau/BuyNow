@@ -14,6 +14,9 @@ class User(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.now(timezone.utc))
     
     
+    orders = db.relationship("Order", back_populates="user", cascade='all, delete-orphan')
+    
+    
     @hybrid_property
     def password_hash(self):
         raise AttributeError('Password hash may not be viewed.')
