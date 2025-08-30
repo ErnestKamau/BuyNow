@@ -10,7 +10,6 @@ class User(db.Model):
     _password_hash = db.Column(db.String(255), nullable=False)
     phone_number = db.Column(db.Integer(10), nullable=False)
     role = db.Column(db.Enum("admin", "customer", "shopkeeper"), nullable=False)
-    id = db.Column(db.Integer, primary_key=True)
     created_at = db.Column(db.DateTime, default=datetime.now(timezone.utc))
     
     
