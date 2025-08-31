@@ -8,11 +8,11 @@ class OrderItem(db.Model):
         db.CheckConstraint('price >= 0', name='positive_price'),
     )
     
-    
+   
     id = db.Column(db.Integer, primary_key=True)
     order_id = db.Column(db.Integer, db.ForeignKey("order.id"))
     product_id = db.Column(db.Integer, db.ForeignKey("product.id"))
     quantity = db.Column(db.Integer, nullable=False)
-    price = db.Column(db.Numeric(10, 2), nullable=False)  # Snapshot of product price at order time
+    unit_price = db.Column(db.Numeric(10, 2), nullable=False)  # Snapshot of product price at order time
     
     product =  db.relationship("Product", back_populates="order_items")
