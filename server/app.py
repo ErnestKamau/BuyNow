@@ -3,7 +3,7 @@ from flask_restful import Api, Resource
 from flask_migrate import Migrate
 from config import Config
 from extensions import db, ma, jwt, bcrypt, cors
-from .routes.auth_routes import Register, Login
+from routes.auth_routes import Register, Login
 
 app = Flask(__name__)
 app.config.from_object(Config)
