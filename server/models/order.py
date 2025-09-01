@@ -18,7 +18,6 @@ class Order(db.Model):
     
     
     items = db.relationship("OrderItem", back_populates="order", cascade='all, delete-orphan')
-    payments = db.relationship("Payment", back_populates="order", cascade="all, delete-orphan") #One order can have multiple partial payments.
     user = db.relationship("User", back_populates="orders")
     sale = db.relationship("Sale", back_populates="order", uselist=False, cascade="all, delete-orphan") # One-to-one   uselist=False makes Order.sale return a single object, not a list. 
     

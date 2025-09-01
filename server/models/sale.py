@@ -20,14 +20,12 @@ class Sale(db.Model):
     profit_amount = db.Column(db.Numeric(10, 2), nullable=False)
     payment_status = db.Column(db.Enum("fully-paid", "partial", "debt", "overdue", name="payment_status"), default="debt", nullable=False)
     due_date = db.Column(db.DateTime, nullable=True)  # set if debt/partial
-    transaction_id = db.Column(db.String(100), db.ForeignKey("mpesa_transactions.transaction_id"), nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.now(timezone.utc))
     updated_at = db.Column(db.DateTime, default=datetime.now(timezone.utc), onupdate=datetime.now(timezone.utc))
     
     items = db.relationship("SaleItem", back_populates="sale", cascade="all, delete-orphan")
     payments = db.relationship("Payment", back_populates="sale", cascade="all, delete-orphan")
     order = db.relationship("Order", back_populates="sale")
-    transaction = db.relationship("MpesaTransaction", back_populates="sale")
     
     @property
     def total_paid(self):
