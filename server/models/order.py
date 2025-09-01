@@ -2,6 +2,7 @@ from extensions import db
 from datetime import datetime, timezone
 
 class Order(db.Model):
+    """Orders are just 'shopping carts' - they become Sales when confirmed"""
     __tablename__ = 'orders'
     
     id = db.Column(db.Integer, primary_key=True)
