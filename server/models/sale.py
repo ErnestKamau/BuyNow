@@ -1,6 +1,6 @@
 from extensions import db
 from datetime import datetime, timezone, timedelta
-from models import Payment
+from .payment import Payment
 
 
 class Sale(db.Model):

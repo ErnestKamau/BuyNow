@@ -15,6 +15,8 @@ cors.init_app(app, resources={r"/api/*": {"origins": "http://localhost:5173"}}, 
 api = Api(app)
 migrate = Migrate(app, db)
 
+import models
+
 
 class Home(Resource):
     
