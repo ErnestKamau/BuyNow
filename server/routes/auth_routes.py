@@ -26,7 +26,7 @@ class Register(Resource):
             
         
         user = User(
-            username=username
+            username=username,
             phone_number=data['phone_number'],
             role="customer",
             is_active=True,
@@ -41,12 +41,41 @@ class Register(Resource):
     
     
     
-
+class Login(Resource):
+    
+    def post(self):
+        data = request.get_json()
+        username = data['username']
+        password = data['password']
+        
+        if not username or not password:
+            return {"error":"Username and Password Required"}
+        
+        user = User.query.filter_by( username=username ).first()
+        
+        if user and user.authenticate(password):
+            identity = {
+                "id" : user.id,
+                "username":user.username,
+                "role":user.role,
+                "last_login":datetime.now(timezone.utc)
+            }
+            
+            token = create_access_token(identity=json.dumps(identity))
+            
+            return {
+                "message": f"successful login {user.username}",
+                "token":token,
+                "mobile_no":user.phone_number
+            }, 200
+        
+        
+        return {'error': 'Invalid credentials'}, 401
     
             
             
             
         
         
-            
+
         
