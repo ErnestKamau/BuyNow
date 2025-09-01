@@ -13,6 +13,7 @@ class SaleItem(db.Model):
     product_id = db.Column(db.Integer, db.ForeignKey("products.id"), nullable=False)
     quantity = db.Column(db.Integer)
     unit_price = db.Column(db.Numeric(10, 2))  # Price at sale time
+    cost_price = db.Column(db.Numeric(10, 2), nullable=False)
     
     sale = db.relationship("Sale", back_populates="items")
     product = db.relationship("Product", back_populates="sale_items")
@@ -21,6 +22,11 @@ class SaleItem(db.Model):
     def subtotal(self):
         """Calculate line total (revenue)."""
         return self.quantity * self.unit_price
+    
+    
+    @property
+    def profit_total(self):
+        return (self.unit_price - self.cost_price) * self.quantity
     
     def __repr__(self):
         return f'<SaleItem {self.product.name} x {self.quantity}>'

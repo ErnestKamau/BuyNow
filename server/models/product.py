@@ -37,11 +37,6 @@ class Product(db.Model):
         return 0
     
     @property
-    def profit_per_unit(self):
-        """Calculate profit per unit."""
-        return self.sale_price - self.cost_price
-    
-    @property
     def is_low_stock(self):
         """Check if product is below minimum stock threshold."""
         return self.in_stock <= self.minimum_stock

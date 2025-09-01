@@ -9,8 +9,9 @@ class Order(db.Model):
     customer_name = db.Column(db.String(100), nullable=True)
     customer_phone = db.Column(db.String(15), nullable=True)
     description = db.Column(db.Text)
-    status = db.Column(db.Enum("paid", "partial" ,"pending", "cancelled", name="order_status"), default="pending", nullable=False)
+    status = db.Column(db.Enum("pending", "confirmed", "cancelled", name="order_status"), default="pending", nullable=False)
     notes = db.Column(db.Text)
+    order_date = db.Column(db.DateTime, default=datetime.now(timezone.utc))
     created_at = db.Column(db.DateTime, default=datetime.now(timezone.utc))
     updated_at = db.Column(db.DateTime, default=datetime.now(timezone.utc), onupdate=datetime.now(timezone.utc))
     
@@ -25,21 +26,7 @@ class Order(db.Model):
     def total_amount(self):
         """Calculate total order amount."""
         return sum(item.subtotal for item in self.items)
-    
-    @property
-    def total_paid(self):
-        """Calculate total amount paid."""
-        return sum(payment.amount for payment in self.payments)
-    
-    @property
-    def balance(self):
-        """Calculate remaining balance."""
-        return self.total_amount - self.total_paid
-    
-    @property
-    def is_fully_paid(self):
-        """Check if order is fully paid."""
-        return self.balance <= 0
+
     
     def __repr__(self):
         return f'<Order {self.id} - {self.customer_name}>'
