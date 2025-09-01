@@ -3,6 +3,7 @@ from flask_restful import Api, Resource
 from flask_migrate import Migrate
 from config import Config
 from extensions import db, ma, jwt, bcrypt, cors
+from .routes.auth_routes import Register, Login
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -25,3 +26,5 @@ class Home(Resource):
     
 
 api.add_resource(Home, "/", endpoint='home' )
+api.add_resource(Register, "/api/registration/", endpoint='registration')
+api.add_resource(Login, "/api/login/", endpoint='login')
