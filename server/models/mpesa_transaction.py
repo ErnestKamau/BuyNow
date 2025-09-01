@@ -7,7 +7,7 @@ class MpesaTransaction(db.Model):
     transaction_id = db.Column(db.String(100), primary_key=True)  # M-Pesa transaction ID
     checkout_request_id = db.Column(db.String(100), unique=True)
     merchant_request_id = db.Column(db.String(100))
-    payment_id = db.Column(db.Integer, db.ForeignKey("payments.id"), nullable=True)  # Link to payment
+    payment_id = db.Column(db.Integer, db.ForeignKey("payments.id"), nullable=False)  # Link to payment
     amount = db.Column(db.Numeric(10, 2), nullable=False)
     phone_number = db.Column(db.String(15), nullable=False)
     account_reference = db.Column(db.String(100))  # Can store sale_id for reference
