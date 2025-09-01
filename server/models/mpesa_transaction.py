@@ -7,16 +7,22 @@ class MpesaTransaction(db.Model):
     transaction_id = db.Column(db.String(100), primary_key=True)  # M-Pesa transaction ID
     checkout_request_id = db.Column(db.String(100), unique=True)
     merchant_request_id = db.Column(db.String(100))
+    account_reference = db.Column(db.String(100))  # Your custom reference (like "CONTRIB_123") that appears on the user's M-Pesa SMS - helps users identify what they paid for
     payment_id = db.Column(db.Integer, db.ForeignKey("payments.id"), nullable=False)  # Link to payment
+    
+    # Transaction Details
     amount = db.Column(db.Numeric(10, 2), nullable=False)
     phone_number = db.Column(db.String(15), nullable=False)
-    account_reference = db.Column(db.String(100))  # Can store sale_id for reference
     transaction_desc = db.Column(db.String(200))
     status = db.Column(db.Enum("pending", "success", "failed", "cancelled", name="mpesa_status"), default="pending", nullable=False)
-    result_code = db.Column(db.Integer)
-    result_desc = db.Column(db.String(200))
+    
+    # M-Pesa Response Fields (populated by callback)
+    mpesa_receipt_number = db.Column(db.String(200)) # M-Pesa confirmation code
+    transaction_date = db.Column(db.DateTime) # When M-Pesa processed it
+    result_code = db.Column(db.Integer) # M-Pesa result code (0 = success)
+    result_desc = db.Column(db.String(200)) # M-Pesa result description
+    
     created_at = db.Column(db.DateTime, default=datetime.now(timezone.utc))
-    completed_at = db.Column(db.DateTime)
     
     
     payment = db.relationship("Payment", back_populates="mpesa_transaction")
