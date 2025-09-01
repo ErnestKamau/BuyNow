@@ -38,7 +38,6 @@ class Product(db.Model):
     
     @property
     def is_low_stock(self):
-        """Check if product is below minimum stock threshold."""
         return self.in_stock <= self.minimum_stock
     
     def __repr__(self):
