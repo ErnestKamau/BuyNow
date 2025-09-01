@@ -7,7 +7,7 @@ class Payment(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     order_id = db.Column(db.Integer, db.ForeignKey("orders.id"), nullable=False)
-    method = db.Column(db.String(20), nullable=False)  # e.g. "cash", "mpesa", "card"
+    method = db.Column(db.Enum("cash", "mpesa", "card"), nullable=False)
     amount = db.Column(db.Numeric(10, 2), nullable=False)
     transaction_id = db.Column(db.String(100))  # e.g. M-Pesa transaction code
     paid_at = db.Column(db.DateTime, default=datetime.now(timezone.utc))
