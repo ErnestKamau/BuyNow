@@ -100,6 +100,21 @@ class ChangePassword(Resource):
         db.session.commit()
         
         return {"message": "Password changed successfully"}, 200
+    
+    
+class ChangePhoneNumber(Resource):
+    
+    @jwt_required
+    def post(self):
+        current_user = json.loads(get_jwt_identity())
+        data = request.get_json()
+        
+        new_no = data.get("new phone number")
+        new_no = data.get("old phone number")
+        
+        if current_user:
+            
+        
         
         
         
