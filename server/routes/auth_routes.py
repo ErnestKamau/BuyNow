@@ -58,7 +58,6 @@ class Login(Resource):
                 "id" : user.id,
                 "username":user.username,
                 "role":user.role,
-                "last_login":datetime.now(timezone.utc)
             }
             
             token = create_access_token(identity=json.dumps(identity))
