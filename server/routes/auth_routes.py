@@ -125,7 +125,24 @@ class ChangePhoneNumber(Resource):
         return {"message":"Phone number changed succesfully"}, 200
     
 
+class UserProfile(Resource):
+    
+    @jwt_required
+    def get(self):
+        current_user = json.loads(get_jwt_identity())
         
+        user = session.query(User).get(current_user['id'])
+        if not user:
+            return {"error":"User not found"}, 404
+        
+        profile_data = {
+            "username": user.username,
+            "phone_number":user.phone_number,
+            "gender": user.gender,
+            "joined_at":user.created_at
+        }
+        
+        return profile_data    
         
         
         
