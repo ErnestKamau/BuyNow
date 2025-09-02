@@ -1,5 +1,5 @@
 from extensions import db
-from flask import request
+from flask import request, session
 from flask_jwt_extended import create_access_token,  jwt_required, get_jwt_identity
 from flask_restful import Resource
 from datetime import datetime, timezone
@@ -71,6 +71,42 @@ class Login(Resource):
         
         
         return {'error': 'Invalid credentials'}, 401
+    
+    
+class ChangePassword(Resource):
+    #change passsword from settings
+    
+    @jwt_required
+    def post(self):
+        current_user = json.loads(get_jwt_identity())
+        data = request.get_json()
+        
+        old_password = data.get('old_password')
+        new_password = data.get('new_password')
+        
+        if not old_password or not new_password:
+            return {"error":"Old password and New password are required"}, 400
+        
+        user = session.query(User).get(current_user['id'])
+        
+        if not user:
+            return {"error":"User not found"}, 404
+        
+        if not user.authenticate(old_password):
+            return {"error":"Invalid old password"}
+        
+        user.password_hash = new_password
+        
+        db.session.commit()
+        
+        return {"message": "Password changed successfully"}, 200
+        
+        
+        
+            
+        
+        
+        
     
             
             
