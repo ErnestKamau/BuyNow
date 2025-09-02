@@ -8,7 +8,7 @@ import json
 
 
 class Register(Resource):
-    
+   
     def post(self):
         data = request.get_json()
         username = data.get('username')
@@ -109,10 +109,27 @@ class ChangePhoneNumber(Resource):
         current_user = json.loads(get_jwt_identity())
         data = request.get_json()
         
-        new_no = data.get("new phone number")
+        current = data.get("current phone number")
         new_no = data.get("old phone number")
         
-        if current_user:
+        if not current or not new_no :
+            return {"error":"current phone number and new phone number are required"}, 400
+        
+        user = session.query(User).get(current_user['id'])
+        if not user:
+            return {"error":"User not found"}, 404
+        
+        user.phone_number = new_no
+        
+        db.session.commit()
+        
+        return {"message":"Phone number changed succesfully"}, 200
+    
+
+        
+        
+        
+        
             
         
         
