@@ -19,7 +19,7 @@ class Register(Resource):
         if User.query.filter( User.username==username ).first():
                 return {"error":"Username already exists"}, 409
         
-        required_fields = ['password', 'phone_number']
+        required_fields = ['password', 'phone_number', 'email', 'gender']
         for field in required_fields:
             if not data.get(field):
                 return {"error":f"{field} is required!"}, 400
@@ -28,6 +28,8 @@ class Register(Resource):
         user = User(
             username=username,
             phone_number=data['phone_number'],
+            email=data['email'],
+            gender=data['gender'],
             role="customer",
             is_active=True,
             created_at=datetime.now(timezone.utc)
@@ -57,6 +59,8 @@ class Login(Resource):
             identity = {
                 "id" : user.id,
                 "username":user.username,
+                "gender":user.gender,
+                "email":user.email,
                 "role":user.role,
             }
             
