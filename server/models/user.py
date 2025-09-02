@@ -9,6 +9,8 @@ class User(db.Model):
     username = db.Column(db.String, unique=True, nullable=False)
     _password_hash = db.Column(db.String(255), nullable=False)
     phone_number = db.Column(db.String(15), nullable=False)
+    email = db.Column(db.String(), nullable=False)
+    gender = db.Column(db.Enum("Male", "Female", name='gender_type'), nullable=False)
     role = db.Column(db.Enum("admin", "customer", "shopkeeper", name="user_roles"), nullable=False)
     is_active = db.Column(db.Boolean, default=True)
     created_at = db.Column(db.DateTime, default=datetime.now(timezone.utc))
